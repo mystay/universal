@@ -1,0 +1,1 @@
+$("#tag_list_#{@model.class.name.demodulize.to_s}_#{@model.id}#{params[:class_prefix].blank? ? nil : "_#{params[:class_prefix]}"}").html("#{escape_javascript(render '/universal/tags/list', model: @model)}");

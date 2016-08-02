@@ -1,0 +1,9 @@
+- if keys and keys.any?
+  .form
+    - keys.each do |key|
+      - value = model.config_value(key[0])
+      .form-group
+        = render '/universal/configurables/form', key: key, value: value, model: model
+  = render '/universal/configurables/js'
+- else
+  .alert.alert-info Easy Config Not Applicable

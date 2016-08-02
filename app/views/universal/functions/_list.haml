@@ -1,0 +1,14 @@
+- if keys and keys.any?
+  .form
+    - keys.each do |key|
+      %p
+        %label
+          = check_box_tag "key_value[#{key[0]}]", 1, model.has?(key[0]), onchange: "setFunction('#{model.class.to_s}', '#{model.id}', '#{key[0]}', this.checked);"
+          = key[1]['title']
+          %br
+          %small= key[1]['description']
+
+  :javascript
+    function setFunction(model_class, model_id, key, checked){
+      $.ajax({type: 'POST', url: "/universal/functions", data: "model_class=" + model_class + "&model_id=" + model_id + "&function=" + key + "&checked=" + checked});
+    }

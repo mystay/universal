@@ -1,0 +1,13 @@
+- class_name = model.class.name.demodulize.to_s
+.tags{id: "tags_#{class_name}_#{model.id}#{class_prefix.blank? ? nil : "_#{class_prefix}"}"}
+  .tag_icon.pull-left
+    = link_to icon('tags'), "javascript:editTags('#{class_name}', '#{model.id}', '#{class_prefix}');", title: "Edit tags"
+  .tag_list{id: "tag_list_#{class_name}_#{model.id}#{class_prefix.blank? ? nil : "_#{class_prefix}"}"}
+    = render '/universal/tags/list', model: model
+  .tag_form{style: 'display:none;', id: "tag_form_#{class_name}_#{model.id}#{class_prefix.blank? ? nil : "_#{class_prefix}"}"}  
+    = form_tag universal.tags_path, remote: true, class: 'form', onsubmit: "$('#tags_textfield_#{class_name}_#{model.id}#{class_prefix.blank? ? nil : "_#{class_prefix}"}').blur();" do
+      = hidden_field_tag :model_class, model.class.to_s
+      = hidden_field_tag :model_id, model.id.to_s
+      = hidden_field_tag :class_prefix, class_prefix.to_s
+      = text_field_tag :tags, !model.tags.nil? ? model.tags.join(', ') : '', onblur: "closeTagForm('#{class_name}', '#{model.id}', '#{class_prefix}')", id: "tags_textfield_#{class_name}_#{model.id}#{class_prefix.blank? ? nil : "_#{class_prefix}"}"
+      .small Separate tags with a comma (,)

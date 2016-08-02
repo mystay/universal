@@ -1,0 +1,18 @@
+= label :key_value, key[0], "#{key[1]['title']}", id: "model_config_key_#{key[0]}"
+- if !key[1]['description'].blank?
+  .small.text-muted= key[1]['description']
+- if key[1]['type'].to_s == 'String'
+  = text_field_tag "key_value[#{key[0]}]", value, onchange: "setKeyValue('#{model.class.to_s}', '#{model.id}', '#{key[1]['title']}', '#{key[0]}', this.value);", class: 'form-control'
+- if key[1]['type'].to_s == 'Text'
+  = text_area_tag "key_value[#{key[0]}]", value, onchange: "setKeyValue('#{model.class.to_s}', '#{model.id}', '#{key[1]['title']}', '#{key[0]}', this.value);", rows: 5, style: 'width:90%;', class: 'form-control'
+- elsif key[1]['type'].to_s == 'Boolean'
+  = check_box_tag "key_value[#{key[0]}]", 1, value == 'true', onchange: "setKeyValue('#{model.class.to_s}', '#{model.id}', '#{key[1]['title']}', '#{key[0]}', this.checked);"
+- elsif key[1]['type'].to_s == 'List'
+  = select "key_value", key[0], key[1]['list_options'].map{|o| o.class == Array ? [o[0],o[1]] : o}, {include_blank: true, selected: value}, {onchange: "setKeyValue('#{model.class.to_s}', '#{model.id}', '#{key[1]['title']}', '#{key[0]}', this.value);", class: 'form-control'}
+- elsif key[1]['type'].to_s == 'Date'
+  .input-group
+    = text_field :key_value, key[0], {value: value, class: "form-control datepicker hasDatepick notranslate", onchange: "setKeyValue('#{model.class.to_s}', '#{model.id}', '#{key[1]['title']}', '#{key[0]}', this.value);", id: "#{model.to_s.parameterize}_#{key[0].to_s.parameterize}", readonly: true}
+    %span.input-group-addon{style: "padding:4px;"}
+      %i.fa.fa-calendar{onclick: "$('##{model.to_s.parameterize}_#{key[0].to_s.parameterize}').focus();", style: 'cursor:pointer;'}
+      |
+      %i.fa.fa-trash{onclick: "$('##{model.to_s.parameterize}_#{key[0].to_s.parameterize}').val('');removeKeyValue('#{model.class.to_s}', '#{model.id}', '#{key[0]}');", style: 'cursor:pointer;', title: "Remove date"}
