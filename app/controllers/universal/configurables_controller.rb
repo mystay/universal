@@ -6,10 +6,6 @@ module Universal
 
     def create
       @model.set_config!(params[:key], params[:value], nil, params[:name]) if @model
-      #log it
-      if !@model.reflect_on_association(:logs).nil? and @model.class != Basement::Territory and @model.class != Lobby::Place
-        @model.log!("Config updated: #{params[:key].titleize} > #{params[:value]}".to_s, current_user)
-      end
       xhr?
     end
 
