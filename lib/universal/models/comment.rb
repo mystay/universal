@@ -6,7 +6,9 @@ module Universal
       included do
         include Mongoid::Document
         include Mongoid::Timestamps
-        include Universal::Concerns::Polymorphic, Universal::Concerns::Kind, Universal::Concerns::Status
+        include Universal::Concerns::Polymorphic
+        include Universal::Concerns::Kind
+        include Universal::Concerns::Status
         store_in collection: 'comments'
         
         field :a, as: :author
@@ -15,6 +17,10 @@ module Universal
         field :sg, as: :system_generated, type: Boolean, default: false
         
         default_scope ->(){order_by(when: :asc)}
+        
+        if !Crm::Settings::UserClassName.blank?
+          belongs_to :user, class_name: Crm::Settings::UserClassName, foreign_key: :user_id
+        end
         
       end
 
