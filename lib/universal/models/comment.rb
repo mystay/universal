@@ -18,9 +18,9 @@ module Universal
         
         default_scope ->(){order_by(when: :asc)}
         
-#         if !Crm::Settings::UserClassName.blank?
-#           belongs_to :user, class_name: Crm::Settings::UserClassName, foreign_key: :user_id
-#         end
+        if !Universal::Configuration.class_name_user.blank?
+          belongs_to :user, class_name: Universal::Configuration.class_name_user, foreign_key: :user_id
+        end
         
       end
 
