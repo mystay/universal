@@ -25,7 +25,11 @@ module Universal
         end
 
         def set_config!(key='', value='', context=nil, name=nil)
-          key_value = self.key_values.find_by(context: context.to_s, key: key.to_s)
+          if context.nil?
+            key_value = self.key_values.find_by(key: key.to_s)
+          else
+            key_value = self.key_values.find_by(context: context.to_s, key: key.to_s)
+          end
           if !key_value.nil?
             if value.blank?
               key_value.destroy
