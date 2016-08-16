@@ -4,7 +4,7 @@ module Universal
     module AutoFlagged
       extend ActiveSupport::Concern
       included do
-        has_many :auto_flags, as: :subject, class_name: 'Base::AutoFlag'
+        has_many :auto_flags, as: :subject, class_name: ::Universal::Configuration.class_name_auto_flag
         
       end
     end
