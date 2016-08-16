@@ -8,5 +8,10 @@ if defined?(Rails)
     resources :tags
     resources :comments
     resources :functions
+    resources :flags do
+      collection do
+        patch :toggle
+      end
+    end
   end
 end

@@ -1,0 +1,4 @@
+.row
+  - model.class::Flags.sorted.each do |flag|
+    .col-sm-4
+      %p= button_tag flag.titleize, class: "btn btn-sm btn-#{model.flagged_with?(flag) ? 'info' : 'secondary'}", onclick: "$.ajax({method: 'PATCH', url: '/universal/flags/toggle', data: {model_type: '#{model.class.to_s}', model_id: '#{model.id}', flag: '#{flag}'}})", id: "flag_button_#{model.id}_#{flag}"

@@ -1,0 +1,4 @@
+- if @model.flagged_with?(:starred)
+  $("#star_#{@model.class.to_s.parameterize}_#{@model.id.to_s}").removeClass('fa-star-o').addClass('fa-star');
+- else
+  $("#star_#{@model.class.to_s.parameterize}_#{@model.id.to_s}").removeClass('fa-star').addClass('fa-star-o');;

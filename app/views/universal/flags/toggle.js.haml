@@ -1,0 +1,4 @@
+- if @add
+  $("#flag_button_#{@model.id}_#{params[:flag]}").removeClass('btn-secondary').addClass('btn-info')
+- else
+  $("#flag_button_#{@model.id}_#{params[:flag]}").addClass('btn-secondary').removeClass('btn-info')
