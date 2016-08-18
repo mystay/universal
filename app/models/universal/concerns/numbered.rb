@@ -12,11 +12,7 @@ module Universal
         private
         def generate_number!
           if self.number.blank?
-            logger.debug "generate_number!"
-            logger.debug self.number
-            logger.debug ::Universal::Configuration.numbered_scope_field
             if !::Universal::Configuration.numbered_scope_field.blank?
-              puts self[::Universal::Configuration.numbered_scope_field]
               scope = self[::Universal::Configuration.numbered_scope_field]
             else
               scope=nil
