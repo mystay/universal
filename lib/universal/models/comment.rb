@@ -16,7 +16,9 @@ module Universal
         field :w, as: :when, type: DateTime
         field :sg, as: :system_generated, type: Boolean, default: false
         
-        default_scope ->(){order_by(when: :asc)}
+        default_scope ->(){order_by(when: :asc, id: :asc)}
+        scope :not_system_generated, ->(){where(system_generated: false)}
+        scope :system_generated, ->(){where(system_generated: true)}
         
         if !Universal::Configuration.class_name_user.blank?
           belongs_to :user, class_name: Universal::Configuration.class_name_user, foreign_key: :user_id

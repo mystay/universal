@@ -11,7 +11,8 @@ module Universal
         def statuses(status_array=[], options={})
           const_set("Statuses", status_array.map{|a| a.to_s})
 
-          field(:_s, as: :status, type: String, default: options[:default].blank? ? nil : options[:default].to_s)
+          field Universal::Configuration.field_name_status, as: :status, type: String, default: options[:default].blank? ? nil : options[:default].to_s
+
           if options[:multiple]
             field(:_ss, as: :statuses, type: Array, default: options[:default].blank? ? nil : [{'s' => options[:default].to_s}])
           end
