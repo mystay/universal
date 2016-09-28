@@ -20,6 +20,8 @@ module Universal
         scope :not_system_generated, ->(){where(system_generated: false)}
         scope :system_generated, ->(){where(system_generated: true)}
         
+        kinds %w(normal system email), :normal
+        
         if !Universal::Configuration.class_name_user.blank?
           belongs_to :user, class_name: Universal::Configuration.class_name_user, foreign_key: :user_id
         end

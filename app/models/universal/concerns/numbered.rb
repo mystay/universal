@@ -15,7 +15,7 @@ module Universal
             if !::Universal::Configuration.numbered_scope_field.blank?
               scope = self[::Universal::Configuration.numbered_scope_field]
             else
-              scope=nil
+              scope = nil
             end
             
             num = ::Universal::DocumentNumber.generate!(self.class.to_s, self.class.name.demodulize.underscore.to_s[0,1], scope.to_s)
