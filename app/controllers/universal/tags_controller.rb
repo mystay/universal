@@ -10,8 +10,8 @@ module Universal
 
     def create
       @model = params[:model_class].classify.constantize.find params[:model_id]
-      tags = params[:tags].to_s.split(',').strip
-      @model.update_attribute(:tags, tags)
+      tags = params[:tags].split(',').map{|t| t.strip.parameterize if !t.strip.blank?}.compact
+      @model.update(:tags, tags)
       xhr?
     end
     
