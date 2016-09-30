@@ -12,7 +12,10 @@ module Universal
       @model = params[:model_class].classify.constantize.find params[:model_id]
       tags = params[:tags].split(',').map{|t| t.strip.parameterize if !t.strip.blank?}.compact
       @model.update(tags: tags)
-      xhr?
+      respond_to do |format|
+        format.json{render json: {tags: tags}}
+        format.js{render layout: false}
+      end
     end
     
   end
