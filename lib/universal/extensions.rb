@@ -34,6 +34,9 @@ class Array
   def strip
     self.map{|s| s.strip if !s.blank?}.compact
   end
+  def to_s
+    self.map{|s| s.to_s}
+  end
 end
 class Symbol
   def titleize
