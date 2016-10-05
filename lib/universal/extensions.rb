@@ -34,7 +34,7 @@ class Array
   def strip
     self.map{|s| s.strip if !s.blank?}.compact
   end
-  def to_s
+  def to_string
     self.map{|s| s.to_s}
   end
 end
