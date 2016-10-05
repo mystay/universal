@@ -13,6 +13,7 @@ module Universal
         
         field :a, as: :author
         field :c, as: :content
+        field :hb, as: :html_body
         field :w, as: :when, type: DateTime
         field :sg, as: :system_generated, type: Boolean, default: false
         
