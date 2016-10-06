@@ -16,6 +16,7 @@ module Universal
         field :hb, as: :html_body
         field :w, as: :when, type: DateTime
         field :sg, as: :system_generated, type: Boolean, default: false
+        field :ic, as: :incoming, type: Boolean, default: false
         
         default_scope ->(){order_by(when: :asc, id: :asc)}
         scope :not_system_generated, ->(){where(system_generated: false)}
