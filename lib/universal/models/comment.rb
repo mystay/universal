@@ -28,6 +28,20 @@ module Universal
           belongs_to :user, class_name: Universal::Configuration.class_name_user, foreign_key: :user_id
         end
         
+        def to_json
+          {
+            id: self.id.to_s,
+            kind: self.kind.to_s,
+            author: (self.user.nil? ? self.author : self.user.name),
+            content: self.content.html_safe,
+            html_body: self.html_body.html_safe,
+            when: self.when,
+            when_formatted: self.when.strftime('%b %d, %Y, %l:%M%P'),
+            system_generated: self.system_generated,
+            incoming: self.incoming
+        }  
+        end
+        
       end
 
       ####################################################################### ClassMethods
