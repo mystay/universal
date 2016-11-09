@@ -13,8 +13,9 @@ module Universal
         include Universal::Concerns::Polymorphic
         include Universal::Concerns::Trashable
         
-        field :n, as: :name, type: String
-        field :no, as: :notes, type: String
+        field :n, as: :name
+        field :no, as: :notes
+        field :surl, as: :shortened_url
         
         mount_uploader :file, Universal::FileUploader
         
@@ -36,7 +37,8 @@ module Universal
             name: self.name,
             file: self.file_filename,
             url: self.file.url,
-            created_at: self.created_at
+            created_at: self.created_at,
+            shortened_url:self.shortened_url
           }
         end
         
