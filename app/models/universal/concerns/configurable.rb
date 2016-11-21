@@ -7,7 +7,10 @@ module Universal
       included do
         embeds_many :key_values, class_name: 'Universal::KeyValue'
 
-        scope :matching_config, ->(key, value, context=nil){where(key_values: {'$elemMatch' => {c: context.to_s, k: key.to_s, v: value.to_s}})}
+        scope :matching_config, ->(key, value, context=nil){
+          where(key_values: 
+            (context.blank? ? {'$elemMatch' => {k: key.to_s, v: value.to_s}} : {'$elemMatch' => {c: context.to_s, k: key.to_s, v: value.to_s}}))
+        }
 
         def config_value(key='', context=nil)
           if !context.blank?
