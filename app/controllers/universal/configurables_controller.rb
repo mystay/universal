@@ -5,7 +5,7 @@ module Universal
     before_filter :find_model
 
     def create
-      @model.set_config!(params[:key], params[:value], nil, params[:name]) if @model
+      @model.set_config!(params[:key], params[:value].encode('UTF-16le', invalid: :replace, replace: '').encode('UTF-8'), nil, params[:name]) if @model
       xhr?
     end
 
