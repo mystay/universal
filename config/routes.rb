@@ -6,6 +6,7 @@ if defined?(Rails)
       end
     end
     resources :tags
+    resources :situations
     resources :comments
     resources :functions
     resources :flags do
