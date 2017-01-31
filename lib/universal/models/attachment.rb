@@ -38,7 +38,11 @@ module Universal
             file: self.file_filename,
             url: self.file.url,
             created_at: self.created_at,
-            shortened_url:self.shortened_url
+            shortened_url: self.shortened_url,
+            subject_type: self.subject_type,
+            subject_id: self.subject_id,
+            subject_name: self.subject.name,
+            created_formatted: self.created_at.strftime('%b %d, %Y')
           }
         end
         
