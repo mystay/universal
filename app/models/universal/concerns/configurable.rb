@@ -18,7 +18,7 @@ module Universal
           else
             key_value = self.key_values.find_by(key: key.to_s)
           end
-          return key_value.value if !key_value.nil?
+          return key_value.value.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '') if !key_value.nil?
           nil
         end
 
