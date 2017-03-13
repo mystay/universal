@@ -24,7 +24,7 @@ module Universal
             city: self.address_city,
             state: self.address_state,
             post_code: self.address_post_code,
-            formatted: self.address_formatted,
+            formatted: self.formatted_address,
             postal_address: self.postal_address,
             country_code: self.country_code,
             country_id: self.country_id.to_s
@@ -33,18 +33,27 @@ module Universal
         
         def formatted_address
           if self.address_formatted.blank? 
-            return [self.address_line_1, self.address_line_2, self.address_city, self.address_state, (self.address_post_code.blank? ? nil : self.address_post_code)].compact.join(', ')
+            return self.parsed_address
           else
             return self.address_formatted
           end
+        end
+    
+        def parsed_address
+          return [
+            (self.address_line_1.strip.blank? ? nil : self.address_line_1.strip), 
+            (self.address_line_2.strip.blank? ? nil : self.address_line_2.strip),
+            (self.address_city.strip.blank? ? nil : self.address_city.strip), 
+            (self.address_state.strip.blank? ? nil : self.address_state.strip), 
+            (self.address_post_code.strip.blank? ? nil : self.address_post_code.strip), 
+            (self.country_code.strip.blank? ? nil : self.country_code.strip)
+            ].compact.join(', ')
         end
         
         private
         def update_formatted_address
           if !self.new_record? and (self.address_line_1.blank? or self.address_line_1_changed? or self.address_line_2_changed? or self.address_city_changed? or self.address_state_changed?)
-            self.address_formatted = [self.address_line_1, 
-              self.address_line_2.blank? ? nil : self.address_line_2,
-              self.address_city, self.address_state, self.address_post_code].compact.join(', ')
+            self.address_formatted = self.parsed_address
           end
         end
       end
