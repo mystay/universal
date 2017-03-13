@@ -27,7 +27,7 @@ module Universal
             formatted: self.address_formatted,
             postal_address: self.postal_address,
             country_code: self.country_code,
-            country_id: self.country_id
+            country_id: self.country_id.to_s
           }
         end
         
