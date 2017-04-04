@@ -4,7 +4,7 @@ module Universal
     DEFAULT_ICON_ENGINE      = :fontawesome
 
     cattr_accessor :template_engine, :icon_engine, :field_name_status, :user_scoped, :field_name_taggable, :field_name_tokened, :field_name_email_history, :numbered_scope_field
-    cattr_accessor :class_name_user, :class_name_auto_flag, :country_collection
+    cattr_accessor :class_name_user, :class_name_auto_flag, :country_collection, :user_scope_field
 
     def self.reset
       self.template_engine   = DEFAULT_TEMPLATE_ENGINE
@@ -16,8 +16,9 @@ module Universal
       self.field_name_email_history = :_eh
       self.class_name_user = nil
       self.user_scoped          = false
-      self.class_name_auto_flag = 'Universal::AutoFlag'
       self.country_collection = 'universal_countries'
+      self.user_scope_field     = :scope_id
+      self.class_name_auto_flag = 'Universal::AutoFlag'
       
       self.numbered_scope_field = nil
       
