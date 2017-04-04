@@ -16,10 +16,7 @@ module Universal
       self.field_name_email_history = :_eh
       self.class_name_user = nil
       self.user_scoped          = false
-<<<<<<< Updated upstream
-=======
       self.country_collection = 'universal_countries'
->>>>>>> Stashed changes
       self.user_scope_field     = :scope_id
       self.class_name_auto_flag = 'Universal::AutoFlag'
       
