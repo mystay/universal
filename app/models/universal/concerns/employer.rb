@@ -20,6 +20,12 @@ module Universal
           end
         end
 
+        def remove_employee!(employee)
+          if !employee.nil? and employee.valid? and self.employee_ids.include?(employee.id)
+            self.employments.where(employee: employee).destroy_all
+          end
+        end
+
       end
 
       module ClassMethods

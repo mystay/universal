@@ -17,11 +17,9 @@ module Universal
       self.class_name_user = nil
       self.user_scoped          = false
       self.country_collection = 'universal_countries'
-      self.user_scope_field     = :scope_id
+      self.user_scope_field     = nil
       self.class_name_auto_flag = 'Universal::AutoFlag'
-      
       self.numbered_scope_field = nil
-      
     end
 
   end
