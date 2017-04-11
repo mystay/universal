@@ -39,6 +39,7 @@ module Universal
             content: self.content.html_safe,
             html_body: self.html_body.html_safe,
             when: self.when,
+            created_at: self.created_at.strftime('%b %d, %Y, %l:%M%P'),
             when_formatted: self.when.strftime('%b %d, %Y, %l:%M%P'),
             system_generated: self.system_generated,
             incoming: self.incoming,
