@@ -18,6 +18,8 @@ module Universal
         field :w, as: :when, type: DateTime
         field :sg, as: :system_generated, type: Boolean, default: false
         field :ic, as: :incoming, type: Boolean, default: false
+        field :sn, as: :subject_name
+        field :sk, as: :subject_kind
         
         default_scope ->(){order_by(when: :asc, id: :asc)}
         scope :not_system_generated, ->(){where(system_generated: false)}
@@ -42,7 +44,8 @@ module Universal
             incoming: self.incoming,
             subject_type: self.subject_type,
             subject_id: self.subject_id.to_s,
-            subject_name: self.subject.name
+            subject_name: self.subject_name,
+            subject_kind: self.subject_kind
         }  
         end
         
