@@ -9,6 +9,7 @@ module Universal
         include Universal::Concerns::Polymorphic
         include Universal::Concerns::Kind
         include Universal::Concerns::Status
+        include Universal::Concerns::Scoped
         store_in collection: 'comments'
         
         field :a, as: :author
@@ -38,7 +39,10 @@ module Universal
             when: self.when,
             when_formatted: self.when.strftime('%b %d, %Y, %l:%M%P'),
             system_generated: self.system_generated,
-            incoming: self.incoming
+            incoming: self.incoming,
+            subject_type: self.subject_type,
+            subject_id: self.subject_id.to_s,
+            subject_name: self.subject.name
         }  
         end
         
