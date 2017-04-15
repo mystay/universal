@@ -43,6 +43,8 @@ module Universal
             when_formatted: self.when.strftime('%b %d, %Y, %l:%M%P'),
             system_generated: self.system_generated,
             incoming: self.incoming,
+            scope_type: self.scope_type,
+            scope_id: self.scope_id.to_s,
             subject_type: self.subject_type,
             subject_id: self.subject_id.to_s,
             subject_name: self.subject_name,

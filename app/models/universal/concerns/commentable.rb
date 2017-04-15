@@ -8,12 +8,13 @@ module Universal
         
         has_many :comments, class_name: 'Universal::Comment', as: :subject
         
-        def save_comment!(content, user=nil)
+        def save_comment!(content, user=nil, scope=nil)
           comment = self.comments.create  content: content,
                                           user: user,
                                           author: user.nil? ? nil : user.name,
                                           system_generated: true,
-                                          when: Time.now.utc
+                                          when: Time.now.utc,
+                                          scope: scope
         end
 
       end
