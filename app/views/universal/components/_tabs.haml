@@ -24,11 +24,16 @@
             var firstSlash = $this.attr('data-href').indexOf('/');
             if (firstSlash !== 0){
               var url = window.location.href;
+              var querystring = window.location.search;
+              url = url.replace(querystring,'');
               var anchorPos = url.indexOf('#');
               if (anchorPos>-1){
                 url = url.substring(0,anchorPos);
               }
               url = url + '/' + $this.attr('data-href');
+              if (querystring!=''){
+                url = url + querystring;
+              }
             }
             else{
               var url = $this.attr('data-href');
