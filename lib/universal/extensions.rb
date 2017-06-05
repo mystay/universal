@@ -37,6 +37,9 @@ class Array
   def to_string
     self.map{|s| s.to_s}
   end
+  def sanitize
+    self.map{|v| v.to_s.strip.sanitize}
+  end
 end
 class Symbol
   def titleize
@@ -58,5 +61,10 @@ class NilClass
   end
   def name
     'Unknown'
+  end
+end
+class Hash
+  def sanitize
+    self.transform_values{|a| a.sanitize}
   end
 end
