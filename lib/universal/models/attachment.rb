@@ -42,7 +42,8 @@ module Universal
             subject_type: self.subject_type,
             subject_id: self.subject_id,
             subject_name: self.subject.name,
-            created_formatted: self.created_at.strftime('%b %d, %Y')
+            created_formatted: self.created_at.strftime('%b %d, %Y'),
+            image: self.image?
           }
         end
         
