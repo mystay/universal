@@ -12,13 +12,17 @@ module Universal
             (context.blank? ? {'$elemMatch' => {k: key.to_s, v: value.to_s}} : {'$elemMatch' => {c: context.to_s, k: key.to_s, v: value.to_s}}))
         }
 
-        def config_value(key='', context=nil)
+        def config_value(key='', context=nil, utf_escape=true)
           if !context.blank?
             key_value = self.key_values.find_by(context: context.to_s, key: key.to_s)
           else
             key_value = self.key_values.find_by(key: key.to_s)
           end
-          return key_value.value.to_s.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '') if !key_value.blank?
+          if utf_escape
+            return key_value.value.to_s.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '') if !key_value.blank?
+          else
+            return key_value.value.to_s if !key_value.blank?
+          end
           nil
         end
 
