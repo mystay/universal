@@ -12,19 +12,17 @@ module Universal
         
         def set_function!(function, on_off)
           if self.functions.nil?
-            self.update_attribute :functions, [function]
+            self.update functions: [function.to_s]
           else
-            if on_off == 'false'
-              self.pull(functions: function)
+            if on_off.to_s == 'false'
+              self.pull(functions: function.to_s)
             else
-              self.push(functions: function) if !self.has?(function)
+              self.push(functions: function.to_s) if !self.has?(function.to_s)
             end
           end
         end
       end
         
-      module ClassMethods
-      end
     end
   end
 end
