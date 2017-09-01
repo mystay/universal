@@ -41,12 +41,12 @@ module Universal
     
         def parsed_address
           return [
-            (self.address_line_1.strip.blank? ? nil : self.address_line_1.strip), 
-            (self.address_line_2.strip.blank? ? nil : self.address_line_2.strip),
-            (self.address_city.strip.blank? ? nil : self.address_city.strip), 
-            (self.address_state.strip.blank? ? nil : self.address_state.strip), 
-            (self.address_post_code.strip.blank? ? nil : self.address_post_code.strip), 
-            (self.country_code.strip.blank? ? nil : self.country_code.strip)
+            ((self.address_line_1.blank? or self.address_line_1.strip.blank?) ? nil : self.address_line_1.strip), 
+            ((self.address_line_2.blank? or self.address_line_2.strip.blank?) ? nil : self.address_line_2.strip),
+            ((self.address_city.blank? or self.address_city.strip.blank?) ? nil : self.address_city.strip), 
+            ((self.address_state.blank? or self.address_state.strip.blank?) ? nil : self.address_state.strip), 
+            ((self.address_post_code.blank? or self.address_post_code.strip.blank?) ? nil : self.address_post_code.strip), 
+            ((self.country_code.blank? or self.country_code.strip.blank?) ? nil : self.country_code.strip)
             ].compact.join(', ')
         end
         
