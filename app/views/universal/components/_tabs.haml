@@ -2,7 +2,6 @@
 .tab-wrapper.tab-primary{class: attrs[:class]}
   %ul.nav.nav-tabs
     - attrs[:tabs].compact.each_with_index do |tab, i|
-      - puts tab.class
       - if tab.class == Array
         - tab_path = (tab[0].include?('/') ? "#{tab[0].sub('/','/tab_')}" : "tab_#{tab[0]}").to_s
         - tab_title = tab[1]
