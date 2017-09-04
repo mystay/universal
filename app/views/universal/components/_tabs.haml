@@ -1,18 +1,21 @@
-- attrs[:tabs] = attrs[:tabs].map{|t| t.to_s}
+- attrs[:tabs] = attrs[:tabs].map{|t| t.class==Array ? t : t.to_s}
 .tab-wrapper.tab-primary{class: attrs[:class]}
   %ul.nav.nav-tabs
     - attrs[:tabs].compact.each_with_index do |tab, i|
-      - tab_path = (tab.include?('/') ? "#{tab.sub('/','/tab_')}" : "tab_#{tab}").to_s
-      - tab_title = (tab.include?('/') ? tab.reverse[0,tab.reverse.index('/')].reverse : tab).to_s
+      - puts tab.class
+      - if tab.class == Array
+        - tab_path = (tab[0].include?('/') ? "#{tab[0].sub('/','/tab_')}" : "tab_#{tab[0]}").to_s
+        - tab_title = tab[1]
+      - else
+        - tab_path = (tab.include?('/') ? "#{tab.sub('/','/tab_')}" : "tab_#{tab}").to_s
+        - tab_title = (tab.include?('/') ? tab.reverse[0,tab.reverse.index('/')].reverse : tab).to_s
       %li{class: ((i==0) ? 'active' : 0)}= link_to tab_title.titleize, "#tab_pane_#{tab_title}", data: {toggle: 'tab', href: tab_title}, id: "tab_anchor_#{tab_title}"
-
   .tab-content
     - attrs[:tabs].compact.each_with_index do |tab, i|
       - tab_path = (tab.include?('/') ? "#{tab.sub('/','/tab_')}" : "tab_#{tab}").to_s
       - tab_title = (tab.include?('/') ? tab.reverse[0,tab.reverse.index('/')].reverse : tab).to_s
       .tab-pane{id: "tab_pane_#{tab_title}", class: ((i==0) ? 'active' : nil), style: (attrs[:class] == 'tab-left' ? "min-height:#{50*attrs[:tabs].length}px;" : nil)}
         = render tab_path if attrs[:ajax].blank? or (attrs[:ajax] and i==0)
-        
 - if attrs[:ajax]
   - content_for :javascript do
     :javascript
