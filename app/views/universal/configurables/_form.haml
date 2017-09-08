@@ -2,9 +2,9 @@
 - if !key[1]['description'].blank?
   .small.text-muted= key[1]['description']
 - if key[1]['type'].to_s == 'String'
-  = text_field_tag "key_value[#{key[0]}]", value, onchange: "setKeyValue('#{model.class.to_s}', '#{model.id}', '#{key[1]['title']}', '#{key[0]}', this.value);", class: 'form-control'
+  = text_field_tag "key_value[#{key[0]}]", value, onchange: "setKeyValue('#{model.class.to_s}', '#{model.id}', '#{key[1]['title']}', '#{key[0]}', this.value);", class: 'form-control', placeholder: key[1]['placeholder']
 - if key[1]['type'].to_s == 'Text'
-  = text_area_tag "key_value[#{key[0]}]", value, onchange: "setKeyValue('#{model.class.to_s}', '#{model.id}', '#{key[1]['title']}', '#{key[0]}', this.value);", rows: 5, style: 'width:90%;', class: 'form-control'
+  = text_area_tag "key_value[#{key[0]}]", value, onchange: "setKeyValue('#{model.class.to_s}', '#{model.id}', '#{key[1]['title']}', '#{key[0]}', this.value);", rows: 5, style: 'width:90%;', class: 'form-control', placeholder: key[1]['placeholder']
 - elsif key[1]['type'].to_s == 'Boolean'
   = check_box_tag "key_value[#{key[0]}]", 1, value == 'true', onchange: "setKeyValue('#{model.class.to_s}', '#{model.id}', '#{key[1]['title']}', '#{key[0]}', this.checked);"
 - elsif key[1]['type'].to_s == 'List'
