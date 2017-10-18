@@ -25,7 +25,7 @@ module Universal
       if !@subject.nil?
         attachments = []
         params[:files].each do |file|
-          attachments.push(@subject.attachments.create file: file)
+          attachments.push(@subject.attachments.create( file: file, name: params[:name] ))
         end
         render json: {attachments: @subject.attachments.map{|a| a.to_json}}
       end
