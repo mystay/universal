@@ -31,6 +31,12 @@ module Universal
       end
     end
     
+    def destroy
+      attachment = @subject.attachments.find(params[:id])
+      attachment.destroy if !attachment.nil?
+      render json: {attachments: @subject.attachments.map{|a| a.to_json}}
+    end
+    
     def shorten_url
       @attachment = @subject.attachments.find(params[:id])
       if @attachment.shortened_url.blank?
