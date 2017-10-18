@@ -36,6 +36,7 @@ module Universal
       if !@attachment.nil?
         @subject = @attachment.subject
         @attachment.destroy
+        @subject.reload
         render json: {attachments: @subject.attachments.map{|a| a.to_json}}
       else
         render json: {attachments: []}
