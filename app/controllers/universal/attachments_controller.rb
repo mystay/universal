@@ -30,10 +30,11 @@ module Universal
         render json: {attachments: @subject.attachments.map{|a| a.to_json}}
       end
     end
-    
+   
     def destroy
-      attachment = @subject.attachments.find(params[:id])
-      attachment.destroy if !attachment.nil?
+      @attachment = Universal::Attachment.find(params[:id])
+      @subject = @attachment.subject
+      @attachment.destroy
       render json: {attachments: @subject.attachments.map{|a| a.to_json}}
     end
     
