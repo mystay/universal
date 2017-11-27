@@ -3,6 +3,7 @@ module Universal
     module Attachment
       extend ActiveSupport::Concern  
       require 'carrierwave/mongoid'
+      require 'open-uri'
       
       included do
         include Mongoid::Document
@@ -24,6 +25,25 @@ module Universal
         scope :for_comment, -> (c){where(tci: c)}
         scope :for_name, ->(n){where(name: n)}
         scope :recent, ->(){order_by(created_at: :desc)}
+        before_update :download_uploaded_file
+        after_update :move_uploaded_file
+        
+        def download_uploaded_file
+          if !self.temporary_comment_id.blank?
+            new_file_path = Rails.root.join('tmp', "#{self.file_filename}")
+            File.open(new_file_path, 'wb') do |f|
+              f << open("http:#{self.file.url.gsub(/hms\/(.*)attachment/, "hms/attachment")}").read
+            end
+          end
+        end
+        
+        def move_uploaded_file
+          if !self.temporary_comment_id.blank?
+            comment = self.subject_type.classify.constantize.find(self.subject_id)
+            comment.attachments.create file: File.open(Rails.root.join('tmp', "#{self.file_filename}"))
+            self.destroy
+          end
+        end
         
         def image?
           %w(.png .jpg .gif).any?{ |file_type| self.file_filename.include?(file_type) }
