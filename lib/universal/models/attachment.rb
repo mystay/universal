@@ -16,10 +16,12 @@ module Universal
         field :n, as: :name
         field :no, as: :notes
         field :surl, as: :shortened_url
+        field :tci, as: :temporary_comment_id
         
         mount_uploader :file, Universal::FileUploader
         
         validates_presence_of :file
+        scope :for_comment, -> (c){where(tci: c)}
         scope :for_name, ->(n){where(name: n)}
         scope :recent, ->(){order_by(created_at: :desc)}
         
@@ -43,7 +45,8 @@ module Universal
             subject_id: self.subject_id,
             subject_name: self.subject.name,
             created_formatted: self.created_at.strftime('%b %d, %Y'),
-            image: self.image?
+            image: self.image?,
+            temp_comment_id: self.tci
           }
         end
         
