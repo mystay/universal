@@ -38,7 +38,7 @@ module Universal
         end
         
         def move_uploaded_file
-          if !self.temporary_comment_id.blank?
+          if self.subject_id_changed?
             comment = self.subject_type.classify.constantize.find(self.subject_id)
             comment.attachments.create file: File.open(Rails.root.join('tmp', "#{self.file_filename}"))
             self.destroy
