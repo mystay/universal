@@ -10,6 +10,7 @@ module Universal
         include Universal::Concerns::Kind
         include Universal::Concerns::Status
         include Universal::Concerns::Scoped
+        include Universal::Concerns::HasAttachments
         store_in collection: 'comments'
         
         field :a, as: :author
@@ -48,7 +49,8 @@ module Universal
             subject_type: self.subject_type,
             subject_id: self.subject_id.to_s,
             subject_name: self.subject_name,
-            subject_kind: self.subject_kind
+            subject_kind: self.subject_kind,
+            attachments: self.attachments.map{|a| {name: a.name, url: a.file.url, filename: a.file_filename}}
         }  
         end
         
