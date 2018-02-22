@@ -21,9 +21,11 @@
 
       %h3.panel-title
         = icon(attrs[:icon]) if !attrs[:icon].blank?
-        - if attrs[:collapsed] and !attrs[:title].blank?
+        - if (attrs[:collapsed] || attrs[:collapsable]) and !attrs[:title].blank?
           = link_to attrs[:title].html_safe, "#pb#{panel_id}", data: {toggle: 'collapse'}
         - else
           = (attrs[:title].blank? ? '&nbsp;' : attrs[:title]).html_safe
-  .panel-body{id: "pb#{panel_id}", style: attrs[:body_style], class: attrs[:collapsed] ? "panel-collapse collapse" : nil}
+  - body_class = "panel-collapse in" if attrs[:collapsable]
+  - body_class = "panel-collapse collapse" if attrs[:collapsed]
+  .panel-body{id: "pb#{panel_id}", style: attrs[:body_style], class: body_class}
     = yield
