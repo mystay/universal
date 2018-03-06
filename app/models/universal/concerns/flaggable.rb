@@ -35,7 +35,11 @@ module Universal
       end
 
       def remove_flag!(f)
-        self.pull(_fgs: f.to_s) if !self.flags.nil?
+        f = [f.to_s] if f.class != Array
+        f = f.map{|flag| flag.to_s}
+        f.each do |flag|
+          self.pull(_fgs: flag) if self.flags.include?(flag)
+        end
       end
 
       def flagged_with?(f)
