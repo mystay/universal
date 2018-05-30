@@ -10,9 +10,10 @@ module Universal
         field :k, as: :key
         field :n, as: :name
         field :v, as: :value
+        field :e, as: :environment, default: nil
 
 #         validates :key, presence: true
-        
+
         embedded_in :model
       end
 

@@ -1,7 +1,27 @@
 :javascript
-  function setKeyValue(model_class, model_id, name, key, value){
-    $.ajax({type: 'POST', url: "/universal/configurables", data: {model_class: model_class, model_id: model_id, name: name, key: key, value: value}})
+  function setKeyValue(model_class, model_id, environment, name, key, value){
+    $.ajax({
+      type: 'POST',
+      url: "/universal/configurables",
+      data: {
+        model_class: model_class,
+        model_id: model_id,
+        environment: environment,
+        name: name,
+        key: key,
+        value: value
+      }
+    });
   }
-  function removeKeyValue(model_class, model_id, key){
-    $.ajax({type: 'POST', url: "/universal/configurables/delete", data: {model_class: model_class, model_id: model_id, key: key}});
+  function removeKeyValue(model_class, model_id, key, environment){
+    $.ajax({
+      type: 'POST',
+      url: "/universal/configurables/delete",
+      data: {
+        model_class: model_class,
+        model_id: model_id,
+        key: key,
+        environment: environment
+      }
+    });
   }

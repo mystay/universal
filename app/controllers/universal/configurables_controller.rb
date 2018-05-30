@@ -5,12 +5,20 @@ module Universal
     before_filter :find_model
 
     def create
-      @model.set_config!(params[:key], params[:value].encode('UTF-16le', invalid: :replace, replace: '').encode('UTF-8'), nil, params[:name]) if @model
+      render json: {} and return false unless @model
+      @model.set_config!  params[:key],
+                          params[:value].encode('UTF-16le', invalid: :replace, replace: '').encode('UTF-8'),
+                          (params[:environment].present? ? params[:environment] : nil),
+                          nil,
+                          params[:name]
       xhr?
     end
 
     def delete
-      key_value = @model.key_values.find_by(key: params[:key])
+      render json: {} and return false unless @model
+      find_hash = {key: params[:key]}
+      find_hash.merge!({environment: params[:environment]}) if params[:environment].present?
+      key_value = @model.key_values.find_by(find_hash)
       key_value.destroy if !key_value.nil?
       xhr?
     end
