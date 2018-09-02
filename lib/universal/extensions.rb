@@ -3,7 +3,7 @@ class String
     self.gsub(/[^a-z0-9]+/i, delimiter).downcase.chomp('-')
   end
   def number?
-    #true if Float(self) rescue false
+    self.gsub!(',','')
     !!(self =~ /^[-+]?[0-9]+$/)
   end
   def self.random(length)
