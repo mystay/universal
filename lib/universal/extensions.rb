@@ -6,8 +6,8 @@ class String
     self.gsub!(',','')
     !!(self =~ /^[-+]?[0-9]+$/)
   end
-  def self.random(length)
-    rand(36**length).to_s(36)
+  def self.random(length=8)
+    SecureRandom.urlsafe_base64(length)
   end
   def abbreviate
     self.split(' ').map{|a| a[0].upcase}.join('')
