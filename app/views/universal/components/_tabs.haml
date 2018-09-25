@@ -8,7 +8,10 @@
       - else
         - tab_path = (tab.include?('/') ? "#{tab.sub('/','/tab_')}" : "tab_#{tab}").to_s
         - tab_title = (tab.include?('/') ? tab.reverse[0,tab.reverse.index('/')].reverse : tab).to_s
-      %li{class: ((i==0) ? 'active' : 0)}= link_to tab_title.titleize, "#tab_pane_#{tab_title}", data: {toggle: 'tab', href: tab_title}, id: "tab_anchor_#{tab_title}"
+      %li{class: ((i==0) ? 'active' : 0)}
+        = link_to tab_title.titleize, "#tab_pane_#{tab_title}",
+        data: {toggle: 'tab', href: tab_title, 'block-reload': attrs[:block_reload].present? ? attrs[:block_reload].include?(tab) : nil},
+        id: "tab_anchor_#{tab_title}"
   .tab-content
     - attrs[:tabs].compact.each_with_index do |tab, i|
       - tab_path = (tab.include?('/') ? "#{tab.sub('/','/tab_')}" : "tab_#{tab}").to_s
@@ -21,8 +24,8 @@
       $( document ).ready(function(){
         $('.nav-tabs a[data-href][data-toggle="tab"]').on('show.bs.tab', function(e) {
           var $this = $(this);
-          if (true)//$this.data('loaded') != 1)
-          {
+          var blockReload = $this.attr('data-block-reload')=='true'
+          if (!blockReload){
             var firstSlash = $this.attr('data-href').indexOf('/');
             if (firstSlash !== 0){
               var url = window.location.href;
@@ -36,12 +39,11 @@
               if (querystring!=''){
                 url = url + querystring;
               }
-            }
-            else{
+            }else{
               var url = $this.attr('data-href');
             }
             //Load the page
-            $($this.attr('href')).load(url, function(data) {
+            $($this.attr('href')).load(url, function(data){
               $this.data('loaded', 1);
             });
           }
