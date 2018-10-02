@@ -12,10 +12,12 @@ module Universal
 
       def archive!
         self.set(_ach: true)
+        touch
       end
 
       def unarchive!
         self.set(_ach: false)
+        touch
       end
 
     end

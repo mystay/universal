@@ -42,10 +42,14 @@ module Universal
               define_method("#{name}!"){
                 self.set(_s: name.to_s) #update the current status
                 self.push(_ss: {s: name.to_s, w: Time.now}) #push to the list of all statuses this model has been
+                touch
               }
             else
               #pending!
-              define_method("#{name}!") { self.set(_s: name.to_s) }
+              define_method("#{name}!") {
+                self.set(_s: name.to_s);
+                touch
+              }
             end
           end
 

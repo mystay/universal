@@ -12,9 +12,11 @@ module Universal
 
       def trash!
         self.set(_trs: true)
+        touch
       end
       def untrash!
         self.set(_trs: false)
+        touch
       end
 
     end

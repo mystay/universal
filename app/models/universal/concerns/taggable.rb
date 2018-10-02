@@ -20,10 +20,12 @@ module Universal
           if !self.tagged_with?(tag)
             self.push(Universal::Configuration.field_name_taggable => tag.to_s)
             self.save #to update the keywords
+            touch
           end
         end
         def remove_tag!(tag)
           self.pull(Universal::Configuration.field_name_taggable => tag.to_s.parameterize('_'))
+          touch
         end
 
       end

@@ -18,7 +18,7 @@ module Universal
         else
           f.each do |flag|
             self.push(_fgs: flag) if !self.flags.include?(flag)
-          end      
+          end
         end
     #     logger.debug "Flagged with '#{f.join(', ')}'"
         if record_history
@@ -32,6 +32,7 @@ module Universal
             end
           end
         end
+        touch
       end
 
       def remove_flag!(f)
@@ -40,6 +41,7 @@ module Universal
         f.each do |flag|
           self.pull(_fgs: flag) if self.flags.include?(flag)
         end
+        touch
       end
 
       def flagged_with?(f)
@@ -48,6 +50,7 @@ module Universal
 
       def clear_flags!
         self.unset(:_fgs)
+        touch
       end
 
       def flag_history_records(code)

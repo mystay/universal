@@ -12,7 +12,7 @@ module Universal
         field :v, as: :value
 
 #         validates :key, presence: true
-        
+
         embedded_in :model
       end
 
