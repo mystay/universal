@@ -8,7 +8,7 @@ module Universal
         embeds_many :key_values, class_name: 'Universal::KeyValue'
 
         scope :matching_config, ->(key, value, context=nil){
-          where(key_values: 
+          where(key_values:
             (context.blank? ? {'$elemMatch' => {k: key.to_s, v: value.to_s}} : {'$elemMatch' => {c: context.to_s, k: key.to_s, v: value.to_s}}))
         }
 
@@ -47,9 +47,10 @@ module Universal
             self.key_values.create  context: context.blank? ? nil : context.to_s,
                                     key: key.blank? ? nil : key.to_s,
                                     value: value.blank? ? nil : value.to_s,
-                                    name: name.blank? ? nil :name.to_s 
+                                    name: name.blank? ? nil :name.to_s
           end
           self.updated_config!(key)
+          touch
         end
 
         def updated_config!(key)
